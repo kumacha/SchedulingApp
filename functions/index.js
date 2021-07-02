@@ -8,5 +8,6 @@ const nuxt = new Nuxt({
 });
 exports.ssr = functions.https.onRequest(async (req, res) => {
   await nuxt.ready();
+  res.send('Hello from Firebase!');
   return nuxt.render(req, res);
 });
