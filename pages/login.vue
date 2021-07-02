@@ -56,6 +56,17 @@
                           ログイン
                         </v-btn>
                       </div>
+                      <div id="github_login">
+                        <v-btn
+                          :disabled="!login_valid"
+                          color="black"
+                          class="my-4 white--text"
+                          justify="center"
+                          @click="github_login"
+                        >
+                          Githubでログイン
+                        </v-btn>
+                      </div>
                     </v-form>
                   </v-card-text>
                 </v-card>
@@ -68,6 +79,7 @@
   </v-container>
 </template>
 <script>
+import firebase from '~/plugins/firebase';
 export default {
   layout({ store }) {
     return store.state.loggedIn ? 'default' : 'home';
@@ -108,6 +120,48 @@ export default {
             this.loginErrorMsg =
               'メールアドレスまたはパスワードが間違っています。';
           }
+        });
+    },
+    github_login() {
+      const provider = new firebase.auth.GithubAuthProvider();
+      provider.addScope('repo');
+      provider.setCustomParameters({
+        allow_signup: 'true',
+      });
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          this.$router.push({
+            name: 'index',
+            params: {
+              dashboard_msg: true,
+              dashboard_msg_text: 'ログイン処理が完了しました。',
+            },
+          });
+
+          const credential = result.credential;
+
+          const token = credential.accessToken;
+          console.log(token);
+
+          // The signed-in user info.
+          const user = result.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          // エラーまとめ
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+          // エラーの元凶のURLを確認
+          const email = error.email;
+          console.log(email);
+          const credential = error.credential;
+          console.log(credential);
+          // ...
         });
     },
   },

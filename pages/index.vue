@@ -27,6 +27,9 @@ export default {
       return this.$store.getters.user;
     },
   },
+  created() {
+    console.log(process.env.API_KEY);
+  },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
