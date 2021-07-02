@@ -34,6 +34,13 @@
                         required
                         validate-on-blur
                       />
+                      <v-text-field
+                        v-model="register_name"
+                        label="ユーザー名"
+                        :rules="nameRules"
+                        required
+                        validate-on-blur
+                      />
 
                       <v-text-field
                         ref="register_password"
@@ -106,6 +113,7 @@ export default {
       tab: null,
       register_valid: true,
       register_email: '',
+      register_name: '',
       register_password: '',
       register_password_again: '',
       emailRules: [
@@ -132,16 +140,25 @@ export default {
           }
         },
       ],
+      nameRules: [(v) => !!v || 'ユーザー名を入力してください'],
       show_registerPassword: false,
     };
   },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+  },
   methods: {
+    // ユーザー登録
     email_register() {
       if (this.$refs.register_form.validate()) {
         this.$store
-          .dispatch('signUp', {
+          .dispatch('email_register', {
             email: this.register_email,
             password: this.register_password,
+            name: this.register_name,
+            thumbnail: this.register_thumbnail,
           })
           .then(() => {
             this.register_email = '';
