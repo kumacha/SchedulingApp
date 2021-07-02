@@ -1,0 +1,52 @@
+<template>
+  <div class="page">
+    // ユーザー情報を表示
+    <p>user.uid: {{ user.uid }}</p>
+    <p>user.email: {{ user.email }}</p>
+    <p>user.name: {{ user.name }}</p>
+    <img :src="user.photoURL" alt="" />
+    // ログインフォーム
+    <form class="form" @submit.prevent>
+      <label class="label">
+        <span class="label"> email </span>
+        <input v-model="email" class="input" type="text" />
+      </label>
+      <label class="label">
+        <span class="label"> password </span>
+        <input v-model="password" class="input" type="password" />
+      </label>
+      <button class="button" type="submit" @click="login">Login</button>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  layout({ store }) {
+    return store.state.loggedIn ? 'default' : 'home';
+  },
+  data() {
+    return {
+      email: '',
+      password: '',
+      updateName: '',
+    };
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+  },
+  methods: {
+    update() {
+      this.$store.dispatch('update', this.updateName);
+    },
+    login(email, password) {
+      this.$store.dispatch('email_login', {
+        email: this.email,
+        password: this.password,
+      });
+    },
+  },
+};
+</script>
