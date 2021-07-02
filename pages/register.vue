@@ -150,6 +150,7 @@ export default {
     },
   },
   methods: {
+    // ユーザー登録
     email_register() {
       if (this.$refs.register_form.validate()) {
         this.$store
