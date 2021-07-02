@@ -86,7 +86,7 @@ export default {
   methods: {
     email_login() {
       this.$store
-        .dispatch('signInWithEmail', {
+        .dispatch('email_login', {
           email: this.login_email,
           password: this.login_password,
         })
@@ -95,6 +95,10 @@ export default {
           this.login_password = '';
           this.$router.push({
             name: 'index',
+            params: {
+              dashboard_msg: true,
+              dashboard_msg_text: 'ログイン処理が完了しました。',
+            },
           });
         })
         .catch((err) => {
