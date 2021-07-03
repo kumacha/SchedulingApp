@@ -25,6 +25,13 @@ export const actions = {
       .then((user) => {
         dispatch('checkLogin');
         console.log(state.loggedIn);
+        this.$router.push({
+          name: 'index',
+          params: {
+            dashboard_msg: true,
+            dashboard_msg_text: 'ログイン処理が完了しました。',
+          },
+        });
         state.loggedIn = true;
       })
       .catch((error) => {
