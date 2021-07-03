@@ -82,34 +82,32 @@ export default {
       const db = firebase.firestore();
       const dbTasks = db
         .collection('projects')
-        .document('5UHuWCdbvuIyNXtMlOO3')
+        .doc('document_id')
         .collection('tasks');
       const timestamp = firebase.firestore.Timestamp.now();
-      firebase.auth().onAuthStateChanged((user) => {
-        dbTasks
-          .add({
-            title: this.task_title,
-            detail: this.task_detail,
-            start: this.start_date,
-            finish: this.finish_date,
-            createdAt: timestamp,
-            updateAt: timestamp,
-          })
-          .then(() => {
-            this.task_title = '';
-            this.task_detail = '';
-            this.start_date = '';
-            this.finish_date = '';
-            console.log('タスクを登録しました');
-          });
-      });
+      dbTasks
+        .add({
+          title: this.task_title,
+          detail: this.task_detail,
+          start: this.start_date,
+          finish: this.finish_date,
+          createdAt: timestamp,
+          updateAt: timestamp,
+        })
+        .then(() => {
+          this.task_title = '';
+          this.task_detail = '';
+          this.start_date = '';
+          this.finish_date = '';
+          console.log('タスクを登録しました');
+        });
     },
   },
 };
 </script>
 
 <style>
-.addschedule-view {
+.addtask-view {
   margin-top: 100px;
 }
 </style>
