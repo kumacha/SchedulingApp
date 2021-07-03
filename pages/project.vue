@@ -93,6 +93,7 @@ export default {
           finish: this.finish_date,
           createdAt: timestamp,
           updateAt: timestamp,
+          addUserId: uid
         })
         .then(() => {
           this.schedule_title = '';
