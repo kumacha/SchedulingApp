@@ -1,26 +1,34 @@
 <template>
-  <div>{{ thisMinute }}</div>
+  <div></div>
 </template>
 <script>
+import firebase from '@/plugins/firebase';
 export default {
   data() {
     return {
       time: 0,
-      thisMinute: 0,
+      help: false,
     };
   },
   mounted() {
-    this.thisMinute = this.timeCheck();
+    setInterval(this.rescueRequest, 1000000);
   },
   methods: {
-    timeCheck() {
-      const date1 = new Date();
-      const minute = date1.getMinutes();
-      console.log(minute);
-      return minute;
-    },
     rescueRequest() {
-      console.log('わからん！！');
+      this.time += 1;
+      if (this.time > 0) {
+        this.help = true;
+        const play = () => {
+          // firebaseから音源データをダウンロード
+          const storageRef = firebase.storage().ref();
+          const imgSample = storageRef.child('天国と地獄.mp3');
+          imgSample.getDownloadURL().then((url) => {
+            const sound = new Audio(url);
+            sound.play();
+          });
+        };
+        play();
+      }
     },
   },
 };
