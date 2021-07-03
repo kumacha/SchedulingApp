@@ -105,13 +105,6 @@ export default {
         .then(() => {
           this.login_email = '';
           this.login_password = '';
-          this.$router.push({
-            name: 'index',
-            params: {
-              dashboard_msg: true,
-              dashboard_msg_text: 'ログイン処理が完了しました。',
-            },
-          });
         })
         .catch((err) => {
           if (err.code === 'auth/user-disabled') {
