@@ -1,48 +1,61 @@
 <template>
-  <div class="title">
-    <v-card-subtitle>プロジェクトID：{{ project.id }}</v-card-subtitle>
-    <v-card-subtitle>プロジェクト名：{{ project.name }}</v-card-subtitle>
-    <v-card-suctitle>プロジェクトID：{{ project.id }}</v-card-suctitle>
-    <v-card-subtitle>開始：{{ project.start }}</v-card-subtitle>
-    <v-card-sybtitle>終了予定：{{ project.finish }}</v-card-sybtitle>
-    <v-spacer></v-spacer>
-    <nuxt-link to="/addSchedule">タスクを追加する</nuxt-link>
+  <div class="project-view">
+    <p>プロジェクトの名前：{{ title }}</p>
+    <p>プロジェクトの詳細： {{ detail }}</p>
+    <p>プロジェクトの開始日： {{ start }}</p>
+    <p>プロジェクトの終了日： {{ finish }}</p>
   </div>
 </template>
 
 <script>
-import firebase from '@/plugins/firebase';
-import 'firebase/firestore';
+import firebase from '~/plugins/firebase';
 export default {
-  name: 'Title',
   data() {
     return {
-      project: [],
-      db: null,
+      title: '',
+      detail: '',
+      start: '',
+      finish: '',
+      projects: [],
     };
   },
+
   created() {
-    this.db = firebase.firestore();
-    this.syncProject();
-  },
-  methods: {
-    syncProject() {
-      const id = 'aaa111';
-      this.projects.splice(0);
-      this.db
-        .collection('projects')
-        .where('id', '==', id)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            console.log(doc.data().body);
-            this.projects.push(doc.data());
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const uid = user.uid;
+        const db = firebase.firestore();
+        const dbProject = db
+          .collection('projects')
+          .where('addUserId', '==', uid);
+        dbProject.get().then((query) => {
+          query.forEach((doc) => {
+            const projects = doc.data();
+            this.projects = [
+              ...this.projects,
+              {
+                title: projects.title,
+                detail: projects.detail,
+                start: projects.start,
+                finish: projects.finish,
+                createdAt: projects.createdAt,
+                updatedAt: projects.updatedAt,
+              },
+            ];
+            console.log(this.projects);
+            this.title = this.projects[0].title;
+            this.detail = this.projects[0].detail;
+            this.start = this.projects[0].start;
+            this.finish = this.projects[0].finish;
           });
-        }, this.projects)
-        .catch(function (error) {
-          console.log(error);
         });
-    },
+      }
+    });
   },
 };
 </script>
+<style>
+.project-view {
+  margin-top: 100px;
+}
+</style>

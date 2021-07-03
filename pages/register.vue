@@ -89,6 +89,16 @@
                           登録
                         </v-btn>
                       </div>
+                      <div id="github_login">
+                        <v-btn
+                          color="black"
+                          class="my-4 white--text"
+                          justify="center"
+                          @click="github_register"
+                        >
+                          Githubでアカウント登録
+                        </v-btn>
+                      </div>
                     </v-form>
                   </v-card-text>
                 </v-card>
@@ -101,6 +111,7 @@
   </v-container>
 </template>
 <script>
+import firebase from '~/plugins/firebase';
 export default {
   //   layout: 'signin',
 
@@ -183,6 +194,65 @@ export default {
             }
           });
       }
+    },
+    github_register() {
+      const provider = new firebase.auth.GithubAuthProvider();
+      provider.addScope('repo');
+      provider.setCustomParameters({
+        allow_signup: 'true',
+      });
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          this.$router.push({
+            name: 'index',
+            params: {
+              dashboard_msg: true,
+              dashboard_msg_text: 'ログイン処理が完了しました。',
+            },
+          });
+
+          const credential = result.credential;
+
+          const token = credential.accessToken;
+          console.log(token);
+
+          // The signed-in user info.
+          const user = result.user;
+          console.log(user);
+          const db = firebase.firestore();
+          const timestamp = firebase.firestore.Timestamp.now();
+          const userData = {
+            uid: user.uid,
+            email: user.email,
+            createdAt: timestamp,
+            updatedAt: timestamp,
+          };
+          db.collection('users')
+            .doc(user.uid)
+            .set(userData)
+            .then(() => {
+              console.log('DBにGitHubアカウントの個人データ入れました。');
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          // ...
+        })
+        .catch((error) => {
+          // エラーまとめ
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+          // エラーの元凶のURLを確認
+          const email = error.email;
+          console.log(email);
+          const credential = error.credential;
+          console.log(credential);
+          // ...
+        });
     },
   },
 };

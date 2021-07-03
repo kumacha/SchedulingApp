@@ -80,13 +80,13 @@ export default {
   methods: {
     task_add() {
       const db = firebase.firestore();
-      const dbProjects = db
+      const dbTasks = db
         .collection('projects')
         .document('5UHuWCdbvuIyNXtMlOO3')
         .collection('tasks');
       const timestamp = firebase.firestore.Timestamp.now();
       firebase.auth().onAuthStateChanged((user) => {
-        dbProjects
+        dbTasks
           .add({
             title: this.task_title,
             detail: this.task_detail,
