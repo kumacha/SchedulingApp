@@ -1,10 +1,20 @@
 <template>
-  <div class="project-view">
-    <p>プロジェクトの名前：{{ title }}</p>
-    <p>プロジェクトの詳細： {{ detail }}</p>
-    <p>プロジェクトの開始日： {{ start }}</p>
-    <p>プロジェクトの終了日： {{ finish }}</p>
-  </div>
+  <v-container>
+    <div class="projects-view">
+      <v-row> <h1>あなたが所属しているプロジェクト一覧</h1></v-row>
+      <v-row>
+        <v-col v-for="(project, index) in projects" :key="index" cols="12">
+          <v-card
+            elevation="2"
+            :to="{ name: 'projects-id', params: { id: project.linkId } }"
+            ><v-card-title class="member-title" v-text="project.title">
+            </v-card-title>
+            <v-card-subtitle v-text="project.detail"> </v-card-subtitle
+          ></v-card>
+        </v-col>
+      </v-row>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -27,7 +37,7 @@ export default {
         const db = firebase.firestore();
         const dbProject = db
           .collection('projects')
-          .where('addUserId', '==', uid);
+          .where('joinUserId', 'array-contains', uid);
         dbProject.get().then((query) => {
           query.forEach((doc) => {
             const projects = doc.data();
@@ -40,7 +50,7 @@ export default {
                 finish: projects.finish,
                 createdAt: projects.createdAt,
                 updatedAt: projects.updatedAt,
-                addUserId: projects.addUserId,
+                joinUserId: projects.joinUserId,
                 linkId: projects.linkId,
               },
             ];
@@ -53,6 +63,11 @@ export default {
         });
       }
     });
+  },
+  methods: {
+    toProject() {
+      this.$router.push(`/project/${this.project.joinUserId}`);
+    },
   },
 };
 </script>
