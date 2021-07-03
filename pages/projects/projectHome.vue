@@ -111,6 +111,8 @@ export default {
                 finish: projects.finish,
                 createdAt: projects.createdAt,
                 updatedAt: projects.updatedAt,
+                addUserId: projects.addUserId,
+                linkId: projects.linkId,
               },
             ];
             console.log(this.projects);

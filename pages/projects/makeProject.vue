@@ -101,7 +101,7 @@ export default {
               finish: this.finish_date,
               createdAt: timestamp,
               updateAt: timestamp,
-              addUserId: uid,
+              joinUserId: [uid],
               pid: this.schedule_pid,
               linkId: ref.id,
             })
