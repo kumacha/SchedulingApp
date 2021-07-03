@@ -50,7 +50,7 @@ export default {
         {
           icon: 'mdi-calendar-clock',
           title: 'スケジュール',
-          to: '/schedule',
+          to: '/projects/projectHome',
         },
         {
           icon: 'mdi-message-question',
