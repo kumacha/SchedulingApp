@@ -19,6 +19,12 @@
                       validate-on-blur
                     />
                     <v-text-field
+                      v-model="schedule_pid"
+                      label="プロジェクトのID"
+                      required
+                      validate-on-blur
+                    />
+                    <v-text-field
                       v-model="schedule_detail"
                       label="プロジェクトの詳細"
                       required
@@ -72,6 +78,7 @@ export default {
     return {
       schedule_title: '',
       schedule_detail: '',
+      schedule_pid: '',
       start_date: '',
       finish_date: '',
       register_valid: true,
@@ -84,26 +91,27 @@ export default {
       const timestamp = firebase.firestore.Timestamp.now();
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-      const uid = user.uid;
-      dbProjects
-        .add({
-          title: this.schedule_title,
-          detail: this.schedule_detail,
-          start: this.start_date,
-          finish: this.finish_date,
-          createdAt: timestamp,
-          updateAt: timestamp,
-          addUserId: uid
-        })
-        .then(() => {
-          this.schedule_title = '';
-          this.schedule_detail = '';
-          this.start_date = '';
-          this.finish_date = '';
-          console.log('プロジェクトを登録しました');
-        });
-      };
-    });
+          const uid = user.uid;
+          dbProjects
+            .add({
+              title: this.schedule_title,
+              detail: this.schedule_detail,
+              start: this.start_date,
+              finish: this.finish_date,
+              createdAt: timestamp,
+              updateAt: timestamp,
+              addUserId: uid,
+              pid: this.schedule_pid,
+            })
+            .then(() => {
+              this.schedule_title = '';
+              this.schedule_detail = '';
+              this.start_date = '';
+              this.finish_date = '';
+              console.log('プロジェクトを登録しました');
+            });
+        }
+      });
     },
   },
 };
