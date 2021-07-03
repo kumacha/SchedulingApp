@@ -1,12 +1,14 @@
 <template>
   <div class="page">
-    <p>//Vuexのデータ</p>
-    <p>user.uid: {{ user.uid }}</p>
-    <p>user.email: {{ user.email }}</p>
-    <p>user.name: {{ user.name }}</p>
-    <img :src="user.photoURL" alt="" />
-    <p>//FireStoreのデータ</p>
-    <p>{{ profiles[0] }}</p>
+    <!-- <p>//Vuexのデータ</p>
+    <p>user.uid: {{ profiles[0].uid }}</p>
+    <p>user.email: {{ profiles[0].email }}</p>
+    <p>user.name: {{ profiles[0].name }}</p>
+
+    <p>//FireStoreのデータ</p> -->
+    <p>ユーザーID:{{ uid }}</p>
+    <p>名前:{{ name }}</p>
+    <p>email:{{ email }}</p>
   </div>
 </template>
 
@@ -15,9 +17,9 @@ import firebase from '~/plugins/firebase';
 export default {
   data() {
     return {
+      uid: '',
+      name: '',
       email: '',
-      password: '',
-      updateName: '',
       profiles: [],
     };
   },
@@ -28,9 +30,6 @@ export default {
     },
   },
   created() {
-    console.log(process.env.API_KEY);
-  },
-  mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const uid = user.uid;
@@ -50,23 +49,13 @@ export default {
                 updatedAt: users.updatedAt,
               },
             ];
-            console.log(this.profiles);
+            this.uid = this.profiles[0].uid;
+            this.name = this.profiles[0].name;
+            this.email = this.profiles[0].email;
           });
         });
       }
     });
-  },
-  methods: {
-    // ここで取得したメアドとパスワードを引数にvuex内のログイン処理を行う
-    login(email, password) {
-      this.$store.dispatch('email_login', {
-        email: this.email,
-        password: this.password,
-      });
-    },
-    update() {
-      this.$store.dispatch('update', this.updateName);
-    },
   },
 };
 </script>

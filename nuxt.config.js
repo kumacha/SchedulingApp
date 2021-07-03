@@ -1,5 +1,14 @@
 import colors from 'vuetify/es5/util/colors';
 
+require('dotenv').config();
+const { API_KEY } = process.env;
+const { AUTH_DOMAIN } = process.env;
+const { PROJECT_ID } = process.env;
+const { STRAGE_BUCKET } = process.env;
+const { MESSAGEING_SENDER_ID } = process.env;
+const { APP_ID } = process.env;
+const { MEASUREMENT_ID } = process.env;
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -20,7 +29,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/firebase'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -86,5 +95,14 @@ export default {
         });
       }
     },
+  },
+  env: {
+    API_KEY,
+    AUTH_DOMAIN,
+    PROJECT_ID,
+    STRAGE_BUCKET,
+    MESSAGEING_SENDER_ID,
+    APP_ID,
+    MEASUREMENT_ID,
   },
 };

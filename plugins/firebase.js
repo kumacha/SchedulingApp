@@ -1,18 +1,22 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/storage';
+import 'firebase/analytics';
 
 const config = {
-  apiKey: 'AIzaSyDexdWnmXyiDRxdrTcvsgD89McyIKYu_cc',
-  authDomain: 'engineermatchingapp.firebaseapp.com',
-  projectId: 'engineermatchingapp',
-  storageBucket: 'engineermatchingapp.appspot.com',
-  messagingSenderId: '459753463999',
-  appId: '1:459753463999:web:39663ed87847e93392660a',
-  measurementId: 'G-LEBPX5HSHL',
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STRAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGEING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
 };
 
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
   firebase.firestore();
 }
-
+export const auth = firebase.auth;
 export default firebase;
