@@ -82,6 +82,9 @@ export default {
       const db = firebase.firestore();
       const dbProjects = db.collection('projects');
       const timestamp = firebase.firestore.Timestamp.now();
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+      const uid = user.uid;
       dbProjects
         .add({
           title: this.schedule_title,
@@ -90,6 +93,7 @@ export default {
           finish: this.finish_date,
           createdAt: timestamp,
           updateAt: timestamp,
+          addUserId: uid
         })
         .then(() => {
           this.schedule_title = '';
@@ -98,6 +102,8 @@ export default {
           this.finish_date = '';
           console.log('プロジェクトを登録しました');
         });
+      };
+    });
     },
   },
 };
