@@ -32,7 +32,9 @@
                     />
                     <v-row
                       ><v-col cols="6"
-                        ><v-date-picker
+                        ><div class="desc">開始日時を選択</div>
+
+                        <v-spacer /><v-date-picker
                           v-model="start_date"
                           locale="ja"
                           min="2021-07-01"
@@ -41,7 +43,9 @@
                         </v-date-picker
                       ></v-col>
                       <v-col cols="6"
-                        ><v-date-picker
+                        ><div class="desc">終了日時を選択</div>
+
+                        <v-spacer /><v-date-picker
                           v-model="finish_date"
                           locale="ja"
                           min="2021-07-01"
@@ -126,5 +130,15 @@ export default {
 <style>
 .addschedule-view {
   margin-top: 100px;
+}
+.container {
+  margin-bottom: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.desc {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 </style>
