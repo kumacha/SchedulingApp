@@ -4,7 +4,7 @@
       <div class="home">
         <v-card class="mx-auto" max-width="600px">
           <v-card-text>
-            <p class="text-h5 text--primary">プロジェクト：Butter</p>
+            <p class="text-h5 text--primary">プロジェクト：{{ title }}</p>
             <div>残り時間：2日15時間36分</div>
           </v-card-text>
         </v-card>
@@ -188,9 +188,8 @@
     </div>
     <!-- </div> -->
     <div>
-      <p>このページの存在に気づきましたか。あなたDeveloperですか？</p>
       <h1>projectsページ</h1>
-      <p>この「{{ id }}」のページだよ！</p>
+      <p>このページはプロジェクトID「{{ id }}」のだよ！</p>
       <div class="project-view">
         <p>プロジェクトの名前：{{ title }}</p>
         <p>プロジェクトの詳細：{{ detail }}</p>
@@ -202,7 +201,7 @@
         <!-- <div v-for="(joinname, index) in joinnames" key="index">
           <p>プロジェクト参加中のユーザー名：{{ joinnames }}さん{</p>
         </div> -->
-        {{ joinnames }}
+        <p>プロジェクト参加中のユーザー：{{ joinnames }}</p>
       </div>
     </div>
     <div class="addTask-view">
@@ -238,7 +237,8 @@
                     />
                     <v-row
                       ><v-col cols="6"
-                        ><v-date-picker
+                        ><div class="desc">開始日時を選択</div>
+                        <v-date-picker
                           v-model="start_date"
                           locale="ja"
                           min="2021-07-01"
@@ -247,7 +247,8 @@
                         </v-date-picker
                       ></v-col>
                       <v-col cols="6"
-                        ><v-date-picker
+                        ><div class="desc">終了日時を選択</div>
+                        <v-date-picker
                           v-model="finish_date"
                           locale="ja"
                           min="2021-07-01"
@@ -318,28 +319,28 @@ export default {
           calories: '100%',
         },
         {
-          name: '見た目',
+          name: 'UIデザイン',
           calories: '30%',
         },
         {
-          name: 'Cupcake',
-          calories: 305,
+          name: '機能実装',
+          calories: '100%',
         },
         {
-          name: 'Gingerbread',
-          calories: 356,
+          name: '眠たい',
+          calories: '100%',
         },
         {
-          name: 'Jelly bean',
-          calories: 375,
+          name: '眠たい',
+          calories: '100%',
         },
         {
-          name: 'Lollipop',
-          calories: 392,
+          name: '眠たい',
+          calories: '100%',
         },
         {
-          name: 'KitKat',
-          calories: 518,
+          name: '眠たい',
+          calories: '100%',
         },
       ],
     };
