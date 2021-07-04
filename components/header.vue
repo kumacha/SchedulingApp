@@ -63,6 +63,11 @@ export default {
           to: '/projects/addTask',
         },
         {
+          icon: 'mdi-alarm',
+          title: 'タスクページ',
+          to: '/projects/task',
+        },
+        {
           icon: 'mdi-account-cog-outline',
           title: 'プロフィール',
           to: '/projects/profile',
