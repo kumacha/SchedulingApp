@@ -82,11 +82,11 @@ export default {
       const db = firebase.firestore();
       const dbTasks = db
         .collection('projects')
-        .doc('document_id')
+        .doc('6FwU618MKwoT9Quvz72o')
         .collection('tasks');
       const timestamp = firebase.firestore.Timestamp.now();
       dbTasks
-        .add({
+        .set({
           title: this.task_title,
           detail: this.task_detail,
           start: this.start_date,
@@ -108,6 +108,6 @@ export default {
 
 <style>
 .addtask-view {
-  margin-top: 100px;
+  margin-top: 200px;
 }
 </style>

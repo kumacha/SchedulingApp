@@ -49,23 +49,23 @@ export default {
         },
         {
           icon: 'mdi-calendar-clock',
-          title: 'スケジュール',
-          to: '/schedule',
+          title: 'プロジェクト作成',
+          to: '/projects/makeProject',
         },
         {
           icon: 'mdi-message-question',
-          title: '質問',
-          to: '/question',
+          title: 'プロジェクト一覧ページ',
+          to: '/projects/projectList',
         },
         {
           icon: 'mdi-alarm',
-          title: 'アラート',
-          to: '/alert',
+          title: 'タスク追加ページ',
+          to: '/projects/addTask',
         },
         {
           icon: 'mdi-account-cog-outline',
           title: 'プロフィール',
-          to: '/profile',
+          to: '/projects/profile',
         },
         {
           icon: 'mdi-logout',

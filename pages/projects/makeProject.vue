@@ -1,4 +1,3 @@
-以下はproject.vueのコピペなので後で編集する
 <template>
   <div class="addschedule-view">
     <v-container>
@@ -16,6 +15,12 @@
                     <v-text-field
                       v-model="schedule_title"
                       label="プロジェクトのタイトル"
+                      required
+                      validate-on-blur
+                    />
+                    <v-text-field
+                      v-model="schedule_pid"
+                      label="プロジェクトのID"
                       required
                       validate-on-blur
                     />
@@ -73,6 +78,7 @@ export default {
     return {
       schedule_title: '',
       schedule_detail: '',
+      schedule_pid: '',
       start_date: '',
       finish_date: '',
       register_valid: true,
@@ -81,27 +87,34 @@ export default {
   methods: {
     project_add() {
       const db = firebase.firestore();
-      const dbProjects = db.collection('projects');
+      const ref = db.collection('projects').doc();
       const timestamp = firebase.firestore.Timestamp.now();
+
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           const uid = user.uid;
-          dbProjects
-            .add({
+          ref
+            .set({
               title: this.schedule_title,
               detail: this.schedule_detail,
               start: this.start_date,
               finish: this.finish_date,
               createdAt: timestamp,
               updateAt: timestamp,
-              addUserId: uid,
+              joinUserId: [uid],
+              pid: this.schedule_pid,
+              linkId: ref.id,
             })
             .then(() => {
               this.schedule_title = '';
               this.schedule_detail = '';
               this.start_date = '';
               this.finish_date = '';
-              console.log('プロジェクトを登録しました');
+              alert('プロジェクトを登録しました');
+              this.$router.push({
+                name: 'projects-id',
+                params: { id: ref.id },
+              });
             });
         }
       });
