@@ -110,7 +110,11 @@ export default {
               this.schedule_detail = '';
               this.start_date = '';
               this.finish_date = '';
-              console.log('プロジェクトを登録しました');
+              alert('プロジェクトを登録しました');
+              this.$router.push({
+                name: 'projects-id',
+                params: { id: ref.id },
+              });
             });
         }
       });

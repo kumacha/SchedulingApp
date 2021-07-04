@@ -54,7 +54,6 @@ export default {
                 linkId: projects.linkId,
               },
             ];
-            console.log(this.projects);
             this.title = this.projects[0].title;
             this.detail = this.projects[0].detail;
             this.start = this.projects[0].start;

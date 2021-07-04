@@ -50,22 +50,22 @@ export default {
         {
           icon: 'mdi-calendar-clock',
           title: 'プロジェクト作成',
-          to: '/makeProject',
+          to: '/projects/makeProject',
         },
         {
           icon: 'mdi-message-question',
           title: 'プロジェクト一覧ページ',
-          to: '/projectList',
+          to: '/projects/projectList',
         },
         {
           icon: 'mdi-alarm',
           title: 'タスク追加ページ',
-          to: '/addTask',
+          to: '/projects/addTask',
         },
         {
           icon: 'mdi-account-cog-outline',
           title: 'プロフィール',
-          to: '/profile',
+          to: '/projects/profile',
         },
         {
           icon: 'mdi-logout',

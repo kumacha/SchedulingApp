@@ -4,17 +4,17 @@
     <v-container>
       <nuxt />
     </v-container>
-    <my-footer v-if="!$store.state.loggedIn" />
+    <!-- <my-footer v-if="!$store.state.loggedIn" /> -->
   </v-app>
 </template>
 
 <script>
 import loginHeader from '~/components/header.vue';
-import myFooter from '~/components/footer.vue';
+// import myFooter from '~/components/footer.vue';
 export default {
   components: {
     loginHeader,
-    myFooter,
+    // myFooter,
   },
 };
 </script>
