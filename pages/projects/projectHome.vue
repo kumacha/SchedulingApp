@@ -1,24 +1,10 @@
 <template>
-<<<<<<< Updated upstream
-  <!-- <div class="project-view"> -->
-  <!-- <p>プロジェクトの名前：{{ title }}</p>
-  <p>プロジェクトの詳細： {{ detail }}</p>
-  <p>プロジェクトの開始日： {{ start }}</p>
-  <p>プロジェクトの終了日： {{ finish }}</p> -->
-  <div class="overlap">
-    <div class="home">
-      <v-card class="mx-auto" max-width="600px">
-        <v-card-text>
-          <p class="text-h5 text--primary">プロジェクト：Butter</p>
-          <div>残り時間：2日15時間36分</div>
-=======
   <div class="overlap">
     <div class="home">
       <v-card class="mx-auto" max-width="500px">
         <v-card-text>
           <div>作業期間：2021.7.3～2021.7.4</div>
           <p class="text-h5 text--primary">プロジェクト：Butter</p>
->>>>>>> Stashed changes
         </v-card-text>
       </v-card>
       <v-simple-table dense class="table">
