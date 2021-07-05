@@ -1,74 +1,59 @@
 <template>
   <div class="page">
-    <p>//Vuexのデータ</p>
-    <p>user.uid: {{ user.uid }}</p>
-    <p>user.email: {{ user.email }}</p>
-    <p>user.name: {{ user.name }}</p>
-    <img :src="user.photoURL" alt="" />
-    <p>//FireStoreのデータ</p>
-    <p>{{ profiles[0] }}</p>
+    <v-card class="mx-auto asa" max-width="320" outlined>
+      <v-list-item three-line>
+        <v-list-item-content>
+          <v-list-item-title class="text-h5 mb-1">
+            スケジュール作成
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            スケジュールの作成はこちらから</v-list-item-subtitle
+          >
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-card-actions>
+        <v-btn outlined rounded text to="/projects/makeProject">click</v-btn>
+      </v-card-actions>
+    </v-card>
+    <v-card class="mx-auto asa2" max-width="320" outlined>
+      <v-list-item three-line>
+        <v-list-item-content>
+          <v-list-item-title class="text-h5 mb-1">
+            タスク登録
+          </v-list-item-title>
+          <v-list-item-subtitle> タスクの登録はこちらから</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-card-actions>
+        <v-btn outlined rounded text to="/projects/addTask">click</v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
-
-<script>
-import firebase from '~/plugins/firebase';
-export default {
-  data() {
-    return {
-      email: '',
-      password: '',
-      updateName: '',
-      profiles: [],
-    };
-  },
-  computed: {
-    // ユーザーの状態管理を引っ張ってます。
-    user() {
-      return this.$store.getters.user;
-    },
-  },
-  mounted() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const uid = user.uid;
-        const db = firebase.firestore();
-        const dbUser = db.collection('users').where('uid', '==', uid);
-        dbUser.get().then((query) => {
-          query.forEach((doc) => {
-            const users = doc.data();
-            this.profiles = [
-              ...this.profiles,
-              {
-                uid: users.uid,
-                name: users.name,
-                email: users.email,
-                password: users.password,
-                createdAt: users.createdAt,
-                updatedAt: users.updatedAt,
-              },
-            ];
-            console.log(this.profiles);
-          });
-        });
-      }
-    });
-  },
-  methods: {
-    // ここで取得したメアドとパスワードを引数にvuex内のログイン処理を行う
-    login(email, password) {
-      this.$store.dispatch('email_login', {
-        email: this.email,
-        password: this.password,
-      });
-    },
-    update() {
-      this.$store.dispatch('update', this.updateName);
-    },
-  },
-};
-</script>
 <style>
 .page {
-  margin-top: 100px;
+  margin-top: 50px;
+  background-image: url('~@/static/bear.jpg');
+  width: 130vw;
+  height: 200vh;
+}
+.title {
+  position: absolute;
+  top: 50px;
+  left: 55px;
+  font-size: 4rem !important;
+  color: white;
+}
+.asa {
+  position: absolute;
+  left: 750px;
+  top: 130px;
+}
+.asa2 {
+  position: absolute;
+  left: 750px;
+  top: 280px;
 }
 </style>
