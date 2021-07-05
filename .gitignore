@@ -95,5 +95,5 @@ yarn.lock
 firestore.indexes
 firestore.rules
 
-.vscode
-.firebase
+.vscode/
+.firebase/
